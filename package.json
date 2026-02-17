@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cd frontend && npm run build",
+    "build": "cd frontend && npm install && npm run build",
     "client": "cd frontend && npm run dev",
     "server": "cd backend && npm run dev",
     "dev": "concurrently \"npm run server\" \"npm run client\""
