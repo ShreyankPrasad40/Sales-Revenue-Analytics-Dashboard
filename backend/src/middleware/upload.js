@@ -6,9 +6,15 @@ const fs = require('fs');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const dir = path.join(__dirname, '../../uploads');
+        const isVercel = process.env.VERCEL || process.env.AWS_Region;
+        const dir = isVercel ? '/tmp' : path.join(__dirname, '../../uploads');
+
         if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
+            try {
+                fs.mkdirSync(dir, { recursive: true });
+            } catch (e) {
+                console.error("Error creating upload dir", e);
+            }
         }
         cb(null, dir);
     },

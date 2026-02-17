@@ -1,17 +1,26 @@
 const fs = require('fs');
 const path = require('path');
 
-const dbPath = path.resolve(__dirname, '../../data');
+const isVercel = process.env.VERCEL || process.env.AWS_Region; // Vercel sets AWS_Region sometimes or VERCEL
+const dbPath = isVercel ? '/tmp' : path.resolve(__dirname, '../../data');
 const salesFile = path.join(dbPath, 'sales.json');
 
 
 if (!fs.existsSync(dbPath)) {
-    fs.mkdirSync(dbPath, { recursive: true });
+    try {
+        fs.mkdirSync(dbPath, { recursive: true });
+    } catch (e) {
+        console.error("Failed to crate db path", e);
+    }
 }
 
 
 if (!fs.existsSync(salesFile)) {
-    fs.writeFileSync(salesFile, JSON.stringify([]));
+    try {
+        fs.writeFileSync(salesFile, JSON.stringify([]));
+    } catch (e) {
+        console.error("Failed to init sales file", e);
+    }
 }
 
 

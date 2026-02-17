@@ -51,6 +51,12 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// Export for Vercel
+module.exports = app;
+
+// Only listen if running directly (dev/local), not when imported by Vercel
+if (require.main === module) {
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
