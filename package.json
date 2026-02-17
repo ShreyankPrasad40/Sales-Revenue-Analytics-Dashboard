@@ -1,4 +1,16 @@
 {
+  "name": "sales-revenue-analytics-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd frontend && npm run build",
+    "client": "cd frontend && npm run dev",
+    "server": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
